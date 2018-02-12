@@ -5,6 +5,7 @@ import
     TextInput,
     Button,
     StyleSheet,
+    Image,
     ActivityIndicator,
     NavigatorIOS,
     ListView
@@ -13,36 +14,74 @@ import
 import {StackNavigator,NavigationActions} from 'react-navigation'
 import CryptoServiceHandler from '../Networking/CryptoServiceHandler'
 
-export default class CryptoCoinDashboard extends Component{
+export default class CryptoCoinDashboard extends Component {
 
 constructor(props){
     super(props)
-
-    var inputSource= new ListView.DataSource({
+     var inputSource= new ListView.DataSource({
         rowHasChanged:(r1,r2)=> r1!= r2  })
 
     this.state={
-        dataSource :inputSource.cloneWithRows(['A','B'])
-      
-    }
-
-    var serviceHandler = new CryptoServiceHandler()
-    serviceHandler.getCoinTickerData();
-
+        dataSource :inputSource.cloneWithRows([]),
+        isProgressShown: false
+      }
  }
 
+ componentDidMount(){
+    this.invokeTickerService() 
+ }
+
+ invokeTickerService(){
+
+    this.setState((prev,props)=>{
+        isProgressShown: true;
+    })
+
+    var serviceHandler = new CryptoServiceHandler()
+    serviceHandler.getCoinTickerData(function(result){
+        let response = result.response
+        if(response){
+        this.setState({
+            dataSource :this.state.dataSource.cloneWithRows(response)
+        })
+        console.log('json of data' + JSON.stringify(this.state.dataSource));
+        this.setState((prev,props)=>{
+            isProgressShown: false;
+        })
+    }}.bind(this),
+    function(error){
+        this.setState((prev,props)=>{
+            isProgressShown: false;
+        })
+    }.bind(this) ) 
+}
+ 
 
  render(){
-     return(
-        <View style={{flexDirection: 'column',width: '100%',height:'100%',alignContent:"center",backgroundColor : 'white'}}>
+     const cyptoIcon = require('../Utils/CryptoIconHelper')
+      return(
+        <View style={{flexDirection: 'column',width: '100%',height:'100%',alignContent:"center",backgroundColor : 'white', paddingTop:10}}>
+        <Text  style={{alignContent:'center' , alignSelf:'center', color:'red' , fontSize:20 } }> Crypto Coin Price </Text>
 
-         <ListView 
-         style = {CryptoCoinDashboard.listView} 
-         renderRow = {(rowData,sectionId,rowId)=>{
-            return <Text>Howdy</Text>
+        <ListView 
+         
+         renderRow = {(rowData)=>{
+           return( 
+           <View  style={[{flexDirection:'row'},CryptoDashboardStyle.rowStyle]}>
+           <Text style={CryptoDashboardStyle.rankingLabel} >Rank # {rowData.rank}  </Text>
+            <Image style={CryptoDashboardStyle.cryptoIcon} source={cyptoIcon.CryptoIcon.getIconUrl(rowData.id)}/> 
+            <View style={CryptoDashboardStyle.rowInfoLabels}>
+                <Text style={CryptoDashboardStyle.rowiLabel} >{rowData.name} </Text>
+                <Text style={CryptoDashboardStyle.rowiLabel} >{rowData.symbol} </Text>
+                <Text style={CryptoDashboardStyle.rowiLabel} >Price $.{rowData.price_usd} </Text>
+                <Text style={CryptoDashboardStyle.rowiLabel} > % Change in 24hrs {rowData.percent_change_24h}% </Text>
+             </View>
+        </View>)
          }}  
          dataSource= {this.state.dataSource} > 
          </ListView>
+          
+
         </View>
      )
  }
@@ -51,5 +90,36 @@ constructor(props){
 const CryptoDashboardStyle = StyleSheet.create({
     listView:{
 
+    },
+    rowStyle:{
+        borderBottomWidth: 1,
+        borderColor: 'grey',
+    },
+    cryptoIcon:{
+        flex: 0.3,
+        height: '100%',
+        width: '100%',
+       
+         resizeMode: Image.resizeMode.center,
+    }
+    ,
+    rowInfoLabels:{
+        flex: 0.6,
+        flexDirection:'column',
+        padding:2,
+        backgroundColor:'white',
+         
+        width:'100%',
+       
+    },
+    rowiLabel:{
+        marginTop: 3,
+        padding: 2
+    },
+    rankingLabel:{
+        alignSelf: 'center',
+        flex: 0.1,
+        padding: 2,
+        paddingLeft:10
     }
 });

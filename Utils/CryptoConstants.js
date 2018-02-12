@@ -2,7 +2,7 @@
     BASE_URL: 'https://api.coinmarketcap.com/v1/',
    
     getTickerUrl : function(){
-            return "Hello World" + 'ticker/';
+            return this.BASE_URL + 'ticker/';
     },
  
 }

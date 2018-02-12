@@ -23,7 +23,7 @@ initState(){
     this.state ={
         timer : new Date().toLocaleString(),
         userName: "ravi-teja-m",
-        password: "Ironman!234",
+        password: "Ironman",
         isLoading :false,
         isErrorEnabled : false,
         isLoggedInSuccessful: false,
@@ -71,7 +71,7 @@ LoginScreen (){
             <TextInput ref={(element)=>{ this.password = element;}}
                        onChangeText={this.onPasswordTextChange.bind(this)} 
                        style={stylingView.textInput} 
-                       value={this.state.password} >
+                       value={this.state.password} secureTextEntry= {true} >
             </TextInput>
 
         </View>

@@ -46,7 +46,7 @@ componentDidMount(){
      //Navigate to Login Screen or check for Existing credentials
         //his.props.navigation.navigate('LoginScreen');
        this.navigateToLoginScreen()
-    },  1500);
+    },  5500);
 }
 
 hasLoginCredentials(){

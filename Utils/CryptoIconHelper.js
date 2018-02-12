@@ -1,8 +1,10 @@
-
-
- export  var CryptoIcon = function(currencyName){
-    if(!currencyName){
-        return null;
-    }
-    return `https://files.coinmarketcap.com/static/img/coins/32x32/${currencyName}.png`
+ var CryptoIcon = {
+    getIconUrl : function(currencyName){
+            return { 
+                url:`https://files.coinmarketcap.com/static/img/coins/32x32/${currencyName}.png`
+            }
+    },
  }
+
+module.exports.CryptoIcon = CryptoIcon
+ 
