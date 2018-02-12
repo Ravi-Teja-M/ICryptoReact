@@ -4,7 +4,7 @@ import
     View,
     StyleSheet
 } from 'react-native'
-export default class LoginScreen extends Component{
+export default class SplashScreen extends Component{
 
 constructor(props){
     super(props)
@@ -12,16 +12,16 @@ constructor(props){
 
 render(){
     return(
-        <View style={LoginViewStyle.container}>
+        <View style={SplashScreen.container}>
          </View>
     )
 }
 }
 
-const LoginViewStyle = StyleSheet.create({
+const SplashScreen = StyleSheet.create({
 
     container : {
-
+        
     }
 
 });
