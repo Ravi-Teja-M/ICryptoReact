@@ -1,34 +1,37 @@
 import React,{Component} from 'react'
+import applogo from '../assets/images/icon_.png'
+import reactlogo from '../assets/images/react_icon.png'
+
 import 
 {
     View,
     StyleSheet,
     Image,
-    Text
+    Text,
+    TouchableWithoutFeedback
 } from 'react-native'
-import applogo from '../assets/images/icon_.png'
-import reactlogo from '../assets/images/react_icon.png'
 
+import {StackNavigator} from 'react-navigation'
 
-export default class SplashScreen extends Component{
+export default class SplashScreen extends Component {
 
 constructor(props){
     super(props)
 }
 
 render(){
-    const appTitle = `( Ravi ) => { "iCrypto" }
-        `
- 
-    return(
+    const appTitle = `( Ravi ) => { "iCrypto" }`
+     return(
+        <TouchableWithoutFeedback onPress={ ()=>{this.props.navigation.navigate('LoginScreen'); } }>
         <View style={SplashScreenStyle.container}>
-        <Image style={SplashScreenStyle.logoStyle} source={applogo} ></Image>
-
+        <Image style={SplashScreenStyle.logoStyle} source={applogo}  ></Image>
+       
         <Text style={SplashScreenStyle.appTitle}> {appTitle} </Text>
-        <Image style={SplashScreenStyle.reactlogoStyle} source={reactlogo} ></Image>
 
- 
+        <Image style={SplashScreenStyle.reactlogoStyle} source={reactlogo} ></Image>
          </View>
+         </TouchableWithoutFeedback>
+
     )
 }
 
@@ -37,7 +40,7 @@ componentDidMount(){
      clearInterval(intervalInst);
 
      //Navigate to Login Screen or check for Existing credentials
-
+        this.props.navigation.navigate('LoginScreen');
     },  1500);
 }
 
@@ -79,5 +82,4 @@ const SplashScreenStyle = StyleSheet.create({
         backgroundColor: 'white',
    
     }
-
 });

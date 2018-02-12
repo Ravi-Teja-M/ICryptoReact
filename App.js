@@ -11,6 +11,7 @@ import {
   Text,
   View
 } from 'react-native';
+import {StackNavigator} from 'react-navigation'
 
 import SplashScreen from './Components/SplashScreen'
 import LoginScreen from './Components/LoginScreen'
@@ -21,13 +22,27 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
+const NavigationStack = StackNavigator(
+ {
+   SplashScreen: {
+     screen: SplashScreen,
+   },
+   LoginScreen:{
+    screen: LoginScreen,
+   },
+},
+{initialRouteName:"SplashScreen"});
+
+
 export default class App extends Component {
   render() {
     return (
-     <SplashScreen/>
+     <NavigationStack/>
     );
   }
 }
+
+
 
 const styles = StyleSheet.create({
   container: {
