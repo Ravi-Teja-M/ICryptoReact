@@ -1,8 +1,17 @@
 import React,{Component} from 'react'
 import 
-{
-    View, Text, TextInput,Button, StyleSheet ,ActivityIndicator ,NavigatorIOS
+ {  View,
+    Text,
+    Image,
+    TextInput,
+    Button,
+    StyleSheet,
+    ActivityIndicator,
+    NavigatorIOS
 } from 'react-native'
+import applogo from '../assets/images/icon_.png'
+import {StackNavigator,NavigationActions} from 'react-navigation'
+
 export default class LoginScreen extends Component{
 
 constructor(props){
@@ -20,7 +29,6 @@ initState(){
         isLoggedInSuccessful: false,
         loggedUserName: ""
     }
-
 }
 
 render(){
@@ -45,8 +53,10 @@ LoginScreen (){
     }
 
     return (
-        <View style={{flexDirection: 'column',width: '100%',height:'100%',alignContent:"center",backgroundColor : 'grey'}}>
-        <View style={{marginTop:'50%'}}>
+        <View style={{flexDirection: 'column',width: '100%',height:'100%',alignContent:"center",backgroundColor : 'white'}}>
+        <View style={{marginTop:'20%'}}>
+        <Image style={stylingView.reactlogoStyle} source={applogo} ></Image>
+
         <View style={{flexDirection: 'row',margin:20 }}>
             <Text style={stylingView.textField} >Email: </Text>
             <TextInput ref={(element)=>{ this.userName = element; }} 
@@ -74,6 +84,14 @@ LoginScreen (){
         </View>
     )
 }
+
+navigateToCryptoDashBoard(){
+      this.props.navigation.dispatch(NavigationActions.reset({
+          index : 0,
+          actions:[NavigationActions.navigate({routeName:'CryptoCoinDashboard'})]
+      }))
+}
+
 
 onUserTextChange(eventObject){
     console.log(eventObject);
@@ -108,11 +126,20 @@ onSubmitClicked(event){
    );
 
    console.log('state' + this.state.isLoading);
- }
-//eof
+
+   this.navigateToCryptoDashBoard();
+ 
+}//eof
+
 }
 
 const stylingView = StyleSheet.create({
+    reactlogoStyle:{
+        marginTop: 20,
+        height:60,
+        width:60,
+        alignSelf: 'center',
+        },
     greetings:{
         color: 'white',
         fontSize: 20,
@@ -148,14 +175,18 @@ const stylingView = StyleSheet.create({
         backgroundColor : '#82B1FF',
         flex:0.3,
         marginTop:20,
-        padding:10
+        padding:10,
+        borderColor: 'black',
+        borderWidth: 1,
      },
     textInput :{
         color: '#000000',
         backgroundColor : '#ffffff',
         flex:0.7,
         marginTop:20,
-        padding:10
+        padding:10,
+        borderColor: 'black',
+        borderWidth: 0.5,
     },
     loginLabel :{
         color: '#FFFFFF',

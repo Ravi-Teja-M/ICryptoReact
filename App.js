@@ -15,6 +15,8 @@ import {StackNavigator} from 'react-navigation'
 
 import SplashScreen from './Components/SplashScreen'
 import LoginScreen from './Components/LoginScreen'
+import CryptoCoinDashboard from './Components/CryptoCoinDashboard'
+
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
     'Cmd+D or shake for dev menu',
@@ -30,6 +32,10 @@ const NavigationStack = StackNavigator(
    LoginScreen:{
     screen: LoginScreen,
    },
+   CryptoCoinDashboard :{
+    screen : CryptoCoinDashboard
+   },
+
 },
 {initialRouteName:"SplashScreen"});
 

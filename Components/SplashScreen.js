@@ -12,6 +12,7 @@ import
 } from 'react-native'
 
 import {StackNavigator} from 'react-navigation'
+import { NavigationActions } from 'react-navigation'
 
 export default class SplashScreen extends Component {
 
@@ -22,7 +23,10 @@ constructor(props){
 render(){
     const appTitle = `( Ravi ) => { "iCrypto" }`
      return(
-        <TouchableWithoutFeedback onPress={ ()=>{this.props.navigation.navigate('LoginScreen'); } }>
+        <TouchableWithoutFeedback onPress={ ()=>{
+           // this.props.navigation.navigate('LoginScreen'); 
+           this.navigateToLoginScreen()
+            } }>
         <View style={SplashScreenStyle.container}>
         <Image style={SplashScreenStyle.logoStyle} source={applogo}  ></Image>
        
@@ -40,7 +44,8 @@ componentDidMount(){
      clearInterval(intervalInst);
 
      //Navigate to Login Screen or check for Existing credentials
-        this.props.navigation.navigate('LoginScreen');
+        //his.props.navigation.navigate('LoginScreen');
+       this.navigateToLoginScreen()
     },  1500);
 }
 
@@ -50,7 +55,12 @@ hasLoginCredentials(){
 }
 
 navigateToLoginScreen(){
-
+    this.props.navigation.dispatch(NavigationActions.reset({
+        index: 0,
+        actions: [
+          NavigationActions.navigate({ routeName: 'LoginScreen' })
+        ]
+      }))
 }
 
 navigateToDashBoardScreen(){
