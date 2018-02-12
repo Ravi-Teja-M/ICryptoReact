@@ -11,6 +11,7 @@ import
 } from 'react-native'
 
 import {StackNavigator,NavigationActions} from 'react-navigation'
+import CryptoServiceHandler from '../Networking/CryptoServiceHandler'
 
 export default class CryptoCoinDashboard extends Component{
 
@@ -24,6 +25,10 @@ constructor(props){
         dataSource :inputSource.cloneWithRows(['A','B'])
       
     }
+
+    var serviceHandler = new CryptoServiceHandler()
+    serviceHandler.getCoinTickerData();
+
  }
 
 
