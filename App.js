@@ -16,6 +16,10 @@ import {StackNavigator} from 'react-navigation'
 import SplashScreen from './Components/SplashScreen'
 import LoginScreen from './Components/LoginScreen'
 import CryptoCoinDashboard from './Components/CryptoCoinDashboard'
+import CryptoCoinDetails from './Components/CryptoCoinDetails'
+
+import FlexBoxTutorial from './Utils/RxTestModules/FlexBoxTutorial'
+
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -35,9 +39,19 @@ const NavigationStack = StackNavigator(
    CryptoCoinDashboard :{
     screen : CryptoCoinDashboard
    },
+   CryptoCoinDetails:{
+     screen:CryptoCoinDetails,
+     
+   },
+   FlexBoxTutorial:{
+     screen:FlexBoxTutorial
+   }
 
 },
-{initialRouteName:"SplashScreen"});
+{initialRouteName:"SplashScreen"}
+//{initialRouteName:"CryptoCoinDetails"}
+
+);
 
 
 export default class App extends Component {

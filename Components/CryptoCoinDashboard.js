@@ -8,7 +8,8 @@ import
     Image,
     ActivityIndicator,
     NavigatorIOS,
-    ListView
+    ListView,
+    TouchableHighlight
 } from 'react-native'
 
 import {StackNavigator,NavigationActions} from 'react-navigation'
@@ -65,8 +66,9 @@ constructor(props){
 
         <ListView 
          
-         renderRow = {(rowData)=>{
+         renderRow = {(rowData,sectionId, highlightRow)=>{
            return( 
+            <TouchableHighlight onPress={ ()=>{this.onItemClick(rowData,sectionId, highlightRow) } }>
            <View  style={[{flexDirection:'row'},CryptoDashboardStyle.rowStyle]}>
            <Text style={CryptoDashboardStyle.rankingLabel} >Rank # {rowData.rank}  </Text>
             <Image style={CryptoDashboardStyle.cryptoIcon} source={cyptoIcon.CryptoIcon.getIconUrl(rowData.id)}/> 
@@ -76,15 +78,23 @@ constructor(props){
                 <Text style={CryptoDashboardStyle.rowiLabel} >Price $.{rowData.price_usd} </Text>
                 <Text style={CryptoDashboardStyle.rowiLabel} > % Change in 24hrs {rowData.percent_change_24h}% </Text>
              </View>
-        </View>)
+        </View> 
+        </TouchableHighlight>
+        )
          }}  
          dataSource= {this.state.dataSource} > 
          </ListView>
-          
-
-        </View>
+          </View>
      )
  }
+
+ onItemClick(rowData,sectionId,rowId, highlightRow){
+ 
+    this.props.navigation.navigate('CryptoCoinDetails',{
+        coinDetails: rowData  
+    })
+ }
+
 }//end of class
 
 const CryptoDashboardStyle = StyleSheet.create({
