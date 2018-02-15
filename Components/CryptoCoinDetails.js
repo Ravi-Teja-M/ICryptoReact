@@ -70,7 +70,7 @@ const CoinDetailsStyle = StyleSheet.create({
 
     },
     marketCapLabel:{
-
+        color:'black'
     },
     coinSummaryContainer:{
         padding:10,
