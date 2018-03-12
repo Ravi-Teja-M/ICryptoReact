@@ -15,6 +15,11 @@ import CryptoServiceHandler from '../Networking/CryptoServiceHandler'
 
 export default class CryptoCoinDetails extends Component {
 
+    static navigationOptions = {
+        title: 'Coin Details',
+      };
+    
+
     constructor(props){
         super(props)
         
@@ -43,13 +48,13 @@ export default class CryptoCoinDetails extends Component {
                 <View style={CoinDetailsStyle.coinSummaryContainer} >
                     <View style={{flex:1}}>
                         <View style={{flexDirection:'row',alignItems:'center'}}>
-                            <Image style={CoinDetailsStyle.coinIcon} source={CryptoIcon.getIconUrl(this.state.coinData.id)}></Image>
+                            <Image style={CoinDetailsStyle.coinIcon} source={CryptoIcon.getIconUrl(this.state.coinData.rank)}></Image>
                             <Text style={{marginLeft: 8, fontFamily: 'arial',fontWeight:'bold',fontSize: 24,color:'grey'}}>({this.state.coinData.symbol})</Text>
                         </View>
                         <Text style={CoinDetailsStyle.coinTitle} >{this.state.coinData.name}</Text>
                     </View>
                     <View style={{flex:1, flexDirection:'column'}}>
-                    <Text style={CoinDetailsStyle.marketPriceLabel} >${this.state.coinData.price_usd} <Text style={{fontSize: 18,color:'grey'}}>USD</Text> </Text>
+                    <Text style={CoinDetailsStyle.marketPriceLabel}>${this.state.coinData.price_usd} <Text style={{fontSize: 18,color:'grey'}}>USD</Text> </Text>
                     <Text style={CoinDetailsStyle.changeInPercent} >({this.state.coinData.percent_change_24h}%)</Text>
                     <Text style={CoinDetailsStyle.bitcoinVolume} >{this.state.coinData.price_btc} BTC</Text>
  
@@ -93,7 +98,8 @@ const CoinDetailsStyle = StyleSheet.create({
         fontFamily: 'arial',
         fontStyle: 'normal',
         fontSize: 26,
-        marginTop: 2
+        marginTop: 2,
+        
     },
     changeInPercent :{
         fontFamily: 'arial',

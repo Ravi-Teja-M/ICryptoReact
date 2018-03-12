@@ -15,6 +15,10 @@ import {StackNavigator,NavigationActions} from 'react-navigation'
 
 export default class LoginScreen extends Component{
 
+    static navigationOptions = {
+        title: 'Login',
+      };
+
 constructor(props){
     super(props)
     this.initState();
